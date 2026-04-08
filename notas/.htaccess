@@ -1,0 +1,20 @@
+Options FollowSymLinks
+
+#Inicia el modulo rewrite de Apache, para el manejo de URL de forma simplificada o de forma amigable
+RewriteEngine On
+
+#Maneja las solicitudes a /api/listar
+RewriteRule ^api/listar$ api.php?opc=listar [NC,L]
+
+# Maneja las solicitudes a /api/insertar
+RewriteRule ^api/insertar$ api.php?opc=insertar [NC,L]
+
+# Maneja las solicitudes a /api/editar
+RewriteRule ^api/editar$ api.php?opc=editar [NC,L]
+
+# Maneja las solicitudes a /api/eliminar/{id_notas}
+RewriteRule ^api/eliminar/([0-9a-zA-Z_-]*)$ api.php?opc=eliminar&id_notas=$1 [NC,L]
+
+# Maneja las solicitudes a /api/obtener/{id_notas}
+RewriteRule ^api/obtener/([0-9a-zA-Z_-]*)$ api.php?opc=obtener&id_notas=$1 [NC,L]
+
