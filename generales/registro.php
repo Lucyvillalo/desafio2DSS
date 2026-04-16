@@ -6,13 +6,12 @@ if (!empty($_POST)) {
 
     $imagen = addslashes(file_get_contents($_FILES['adjunto']['tmp_name']));
 
-
     $nombre = $_POST["nombre"];
     $email = $_POST["email"];
     $carnet = $_POST["carnet"];
     $cum = $_POST["cum"];
 
-    $sql = "";
+    $sql = "INSERT INTO generales (nombre, email, carnet, cum, foto) VALUES ('$nombre', '$email', '$carnet', '$cum', '$imagen')";
 
     $query = $con->query($sql);
 
