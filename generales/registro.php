@@ -1,17 +1,21 @@
-<html>
+html>
 <?php
 if (!empty($_POST)) {
 
     require_once './php/conexion.php';
 
-    $imagen = addslashes(file_get_contents($_FILES['adjunto']['tmp_name']));
+    $imagen = "";
+    if (isset($_FILES['adjunto']) && $_FILES['adjunto']['size'] > 0) {
+        $imagen = addslashes(file_get_contents($_FILES['adjunto']['tmp_name']));
+    }
 
     $nombre = $_POST["nombre"];
     $email = $_POST["email"];
     $carnet = $_POST["carnet"];
     $cum = $_POST["cum"];
 
-    $sql = "INSERT INTO generales (nombre, email, carnet, cum, foto) VALUES ('$nombre', '$email', '$carnet', '$cum', '$imagen')";
+    $sql = "INSERT INTO generales (nombre, carnet, correo, cum, imagen, fechacreacion) 
+            VALUES ('$nombre', '$carnet', '$email', '$cum', '$imagen', NOW())";
 
     $query = $con->query($sql);
 
