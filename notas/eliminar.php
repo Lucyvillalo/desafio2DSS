@@ -1,11 +1,10 @@
 <?php
-//consumiendo nuestro webservice para obtener el conjunto de datos
 if (!empty($_GET)) {
 
+    $id_notas = $_GET['id_notas'];
 
     $url_base = dirname((isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]");
     $url = $url_base . "/api/obtener/" . $id_notas;
-
 
     $client = curl_init($url);
     curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
@@ -32,7 +31,6 @@ $TituloSeccion = "Eliminar Notas";
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="alert alert-warning border-0 shadow-sm mb-4 d-flex align-items-center">
-                            <i class="mdi mdi-alert-outline me-3 fs-3"></i>
                             <div>
                                 <h5 class="mb-0 fw-bold">¿Estás seguro de eliminar este registro?</h5>
                                 <small>Esta acción no se puede deshacer.</small>
@@ -45,11 +43,8 @@ $TituloSeccion = "Eliminar Notas";
                             <div class="row g-4">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="Materia" class="fw-bold text-muted mb-2">Materia</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light"><i class="mdi mdi-book-open-variant"></i></span>
-                                            <input readonly type="text" value="<?php echo $result->materia; ?>" class="form-control bg-light" name="materia" id="materia" />
-                                        </div>
+                                        <label class="fw-bold text-muted mb-2">Materia</label>
+                                        <input readonly type="text" value="<?php echo $result->materia; ?>" class="form-control bg-light" name="materia" />
                                     </div>
                                 </div>
 
@@ -57,22 +52,16 @@ $TituloSeccion = "Eliminar Notas";
                                     <label class="fw-bold text-muted mb-2">Desglose de Calificaciones</label>
                                     <div class="row g-2">
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label class="small text-uppercase">Nota 1</label>
-                                                <input readonly type="text" value="<?php echo $result->nota1; ?>" class="form-control text-center bg-light" name="nota1" id="nota1" />
-                                            </div>
+                                            <label class="small text-uppercase">Nota 1</label>
+                                            <input readonly type="text" value="<?php echo $result->nota1; ?>" class="form-control text-center bg-light" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label class="small text-uppercase">Nota 2</label>
-                                                <input readonly type="text" value="<?php echo $result->nota2; ?>" class="form-control text-center bg-light" name="nota2" id="nota2" />
-                                            </div>
+                                            <label class="small text-uppercase">Nota 2</label>
+                                            <input readonly type="text" value="<?php echo $result->nota2; ?>" class="form-control text-center bg-light" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label class="small text-uppercase">Nota 3</label>
-                                                <input readonly type="text" value="<?php echo $result->nota3; ?>" class="form-control text-center bg-light" name="nota3" id="nota3" />
-                                            </div>
+                                            <label class="small text-uppercase">Nota 3</label>
+                                            <input readonly type="text" value="<?php echo $result->nota3; ?>" class="form-control text-center bg-light" />
                                         </div>
                                     </div>
                                 </div>
@@ -82,7 +71,7 @@ $TituloSeccion = "Eliminar Notas";
 
                             <div class="d-flex justify-content-between align-items-center">
                                 <button type="submit" class="btn btn-danger btn-lg px-5 shadow">
-                                    <i class="mdi mdi-trash-can-outline"></i> Confirmar Eliminación
+                                    Confirmar Eliminación
                                 </button>
                             </div>
                         </form>
@@ -92,30 +81,24 @@ $TituloSeccion = "Eliminar Notas";
         </div>
         <?php require_once('../scripts.php'); ?>
         <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content shadow border-0">
-            <div class="p-4 text-center">
-                <div class="mb-3">
-                    <i class="mdi mdi-check-circle-outline text-success" style="font-size: 80px;"></i>
-                </div>
-                <h2 class="fw-bold">¡Eliminación Exitosa!</h2>
-                <p class="text-muted">La nota ha sido eliminada correctamente del sistema.</p>
-                
-                <div class="mt-4">
-                    <a href="ver.php" class="btn btn-success btn-lg w-100 shadow-sm">
-                        <i class="mdi mdi-arrow-right me-2"></i>Ir al Listado de Notas
-                    </a>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content shadow border-0">
+                    <div class="p-4 text-center">
+                        <h2 class="fw-bold">¡Eliminación Exitosa!</h2>
+                        <p class="text-muted">La nota ha sido eliminada correctamente del sistema.</p>
+                        <div class="mt-4">
+                            <a href="ver.php" class="btn btn-success btn-lg w-100 shadow-sm">Ir al Listado de Notas</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </body>
-
 </html>
+
 <?php
 if (!empty($_POST)) {
-    //consumiendo nuestro webservice para enviar el conjunto de datos
 
     $id_notas = $_POST['id_notas'];
 
@@ -125,14 +108,14 @@ if (!empty($_POST)) {
     $client = curl_init($url);
     curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($client);
-    if ($response == "Exito") { ?>
+
+    if ($response == "Exito") {
         echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
                 var myModal = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
                 myModal.show();
             });
         </script>";
-<?php
     } else {
         echo "Error, No se pudo eliminar el registro";
     }
